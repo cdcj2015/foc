@@ -30,8 +30,8 @@ Delay::measure()
   Kip *k = Kip::k();
   Cpu_time t = Kip::k()->clock;
   Timer::update_timer(t + 1000); // 1ms
-  while (t == (t1 = k->clock))
-    Proc::pause();
+//  while (t == (t1 = k->clock))
+//    Proc::pause();
   Timer::update_timer(k->clock + 1000); // 1ms
   while (t1 == k->clock)
     {

@@ -115,12 +115,16 @@ IMPLEMENT static inline ALWAYS_INLINE
 void Proc::sti()
 {
   Mword v;
-  asm volatile("mrs %0, cpsr    \n"
+/*  asm volatile("mrs %0, cpsr    \n"
                "bic %0, %0, %1  \n"
                "msr cpsr_c, %0  \n"
                : "=r" (v)
                : "I" (Sti_mask)
                : "memory");
+
+               */
+asm volatile("mrs %0, cpsr\n" "bic %0, %0,#0x80\n" "msr cpsr_c, %0\n":"=r"(v)
+                            ::"memory"); 
 }
 
 IMPLEMENT static inline ALWAYS_INLINE
@@ -142,13 +146,13 @@ Proc::Status Proc::interrupts()
 {
   Status ret;
   asm volatile("mrs %0, cpsr" : "=r" (ret));
-  return !(ret & Sti_mask);
+  return !(ret & 0x80);
 }
 
 IMPLEMENT static inline ALWAYS_INLINE
 void Proc::sti_restore(Status st)
 {
-  if (!(st & Sti_mask))
+  if (!(st & 0x80))
     sti();
 }
 

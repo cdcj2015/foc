@@ -176,7 +176,7 @@ Platform_control::cpuboot(Mword startup_vector, Cpu_phys_id cpu)
   if (Platform::is_4412())
     b += cxx::int_value<Cpu_phys_id>(cpu) * 4;
 
-  write_phys_mem_coherent(b, startup_vector);
+  //write_phys_mem_coherent(b, startup_vector);
 }
 
 //--------------------------------------------------------------------------

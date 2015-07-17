@@ -90,10 +90,23 @@ Kernel_thread::bootstrap()
 
   Timer_tick::enable(current_cpu());
   Proc::sti();
-  Watchdog::enable();
+//  Watchdog::enable();
+   printf("11===========interupts=%d\n",Proc::interrupts());
+   for(;;){
+ 	if(Proc::interrupts() == 0)
+              Proc::sti();
+ 	else
+ 	      break;
+          
+      for(int i=0;i<100000;i++);
+ }
+
   printf("Calibrating timer loop... ");
   // Init delay loop, needs working timer interrupt
-  Delay::init();
+ //  Delay::init();
+ //  for(int i=0;i<10000;ia++);
+ 
+  printf("22===========interupts=%d\n",Proc::interrupts());
   printf("done.\n");
 
   run();
